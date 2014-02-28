@@ -8,7 +8,7 @@ all: opensuse_usernames.pdf opensuse_usernames.html
 		$<
 
 .txt.html:
-	a2x -f html -v\
+	a2x -f xhtml -v\
 		--dblatex-opts="-P draft.mode=yes" \
 		--dblatex-opts="-P draft.watermark=1" \
 		--dblatex-opts="-P doc.publisher.show=0" \
