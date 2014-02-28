@@ -1,0 +1,69 @@
+_____________________________________________________________________
+ OSEP: XXXX
+ Title: Informational proposal: openSUSE Distribution Daemon User Names
+ Version: 0.1
+ Last-Modified: 28 Feb 2014
+ Author: Guido Berhoerster <gber@opensuse.org>, Ludwig Nussel <ludwig.nussel@suse.de>
+ Status: Draft 
+ Type: Informational
+ Created: 28 Feb 2014
+ Post-History: 
+_____________________________________________________________________
+
+Abstract
+--------
+
+This OSEP proposes a defined pattern for unprivileged system user
+names.
+
+
+Specification
+-------------
+
+Packages that add unprivileged users to e.g. run daemons as need to
+use names that follow the following regular expression:
+
+  ^_[0-9a-z][0-9a-z_]*[0-9a-z]$
+
+This policy is meant to be applied to all packages that are new to
+openSUSE Factory. Existing packages are encouraged to switch to the
+new policy.
+
+Motivation
+----------
+
+Many packages need to add user names for their unprivileged daemons.
+Many such names are short for convenience. Since there is no
+separate name space for system users those names may collide with
+names of real persons. A common pattern for user names on unix
+systems also is to combine letters of the given names and the
+surname which may lead to combinations that may also collide with
+system user names. Sharing a user name between a system user and a
+normal user leads to surprising or even security relevant
+misbehavior as the daemon user may write to files in the real user's
+home or vice versa.
+
+Since introducing a separate namespace is not possible in the
+current name service model, separating system users and real users
+must be done by naming them differently.
+
+Rationale
+---------
+
+A special prefix or suffix to user names is a straight forward
+solution to the same namespace problem. Since long user names may
+not fully be displayed by e.g. the ps tool the chosen method needs
+to be short. OpenBSD solved that by prefixing unprivileged system
+user names simply with an underscore (ASCII character 95).
+
+Copyright
+---------
+
+This document has been placed in the public domain.
+
+References
+----------
+
+[bibliography]
+- FIXME: add link to openBSD specification here
+- current list of known user names in opensuse is maintained in link:https://build.opensuse.org/package/view_file/openSUSE:Factory/rpmlint/config?expand=1[rpmlint]
