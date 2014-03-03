@@ -2,7 +2,7 @@ _____________________________________________________________________
  OSEP: XXXX
  Title: Informational proposal: openSUSE Distribution Daemon User and Group Names
  Version: 0.1
- Last-Modified: 28 Feb 2014
+ Last-Modified: 03 Mar 2014
  Author: Guido Berhoerster <gber@opensuse.org>, Ludwig Nussel <ludwig.nussel@suse.de>
  Status: Draft 
  Type: Informational
@@ -23,7 +23,7 @@ Specification
 Packages that add unprivileged users to e.g. run daemons as need to
 use names that follow the following regular expression:
 
-  ^_[0-9a-z][0-9a-z_]*[0-9a-z]$
+  ^_[0-9a-z][0-9a-z_]*$
 
 This policy is meant to be applied to all packages that are new to
 openSUSE Factory. Existing packages are encouraged to switch to the
@@ -37,7 +37,7 @@ Motivation
 
 Many packages need to add user and group names for their
 unprivileged daemons.
-Currently openSUSE Factory has a known lists of more than 130 such
+Currently openSUSE Factory has a known lists of more than 130<<A>> such
 daemon user names. Many names are short for convenience, e.g. 'pop',
 'vdr', 'tor' or 'znc'. Since there is no separate name space for
 system users those names may collide with names of real persons. A
@@ -58,16 +58,21 @@ Rationale
 A special prefix or suffix to user names is a straight forward
 solution to the same namespace problem. Since long user names may
 not fully be displayed by e.g. the ps tool the chosen method needs
-to be short. OpenBSD solved that by prefixing unprivileged system
-user and group names simply with an underscore (ASCII character 95).
+to be short. Therefore using a single letter character may be used.
+According to the recommended regular expression for usernames in the
+useradd manpage<<D>> of the shadow package, dollar could be used as
+suffix or underscore as prefix or suffix.
+OpenBSD already implemented a policy to use underscore (ASCII
+character 95) as prefix in 2003<<C>>. This method is therefore
+considered proven in practice.
 
 For symmetry reasons and because many packages also create groups
 with the same name as the user the same solution should be applied
 to groups as well.
 
 
-Copyright
----------
+License
+-------
 
 This document has been placed in the public domain.
 
@@ -75,6 +80,7 @@ References
 ----------
 
 [bibliography]
-- List of sytem users in link:http://www.openbsd.org/cgi-bin/cvsweb/\~checkout~/ports/infrastructure/db/user.list?rev=HEAD;content-type=text%2Fplain[OpenBSD] with short sentence expressing the "policy"
-- some link:http://lists.opensuse.org/opensuse-packaging/2014-02/msg00103.html[numbers] collected by Guido
-- current list of known user names in opensuse is maintained in link:https://build.opensuse.org/package/view_file/openSUSE:Factory/rpmlint/config?expand=1[rpmlint]
+- [[[A]]] current list of known user names in opensuse is maintained in link:https://build.opensuse.org/package/view_file/openSUSE:Factory/rpmlint/config?expand=1[rpmlint]
+- [[[B]]] link:http://anonscm.debian.org/viewvc/pkg-shadow/upstream/trunk/man/useradd.8.xml?view=markup[useradd manpage]
+- [[[C]]] List of sytem users in link:http://www.openbsd.org/cgi-bin/cvsweb/\~checkout~/ports/infrastructure/db/user.list?rev=HEAD;content-type=text%2Fplain[OpenBSD] with short sentence expressing the "policy"
+- [[[D]]] some link:http://lists.opensuse.org/opensuse-packaging/2014-02/msg00103.html[numbers] collected by Guido
